@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { DataProvider } from "@/context/data-provider";
+import { Toaster } from "react-hot-toast";
+import { TriangleAlert } from "lucide-react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <DataProvider>
+          <div className="flex items-center gap-3 px-5 py-2 bg-foreground/90 text-background border border-foreground rounded-xl w-max absolute top-4 left-1/2 -translate-x-1/2">
+            <TriangleAlert color="yellow" />
+            <span>If the chart is not showing. Change the IP via VPN</span>
+          </div>
+          {children}
+          <Toaster position="top-center" reverseOrder={false} />
+        </DataProvider>
+      </body>
     </html>
   );
 }
